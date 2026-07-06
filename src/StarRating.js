@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const containerStyle = {
     display: 'flex',
@@ -11,19 +12,29 @@ const starContainerStyle = {
     gap: '4px',
 };
 
-const textStyle = {
-    lineHeight: '1',
-    margin: '0',
+
+
+
+StarRating.propTypes = {
+    maxRating: PropTypes.number,
+    color: PropTypes.string,
+    size: PropTypes.number
 };
-
-
-export default function StarRating({maxRating = 5}) {
+    
+export default function StarRating({maxRating = 5, color = '#fcc419', size = 48}) {
 const [rating, setRating] = useState(0);
 const [tempRating, setTempRating] = useState(0);
 
 function handleRating(rate) {
     setRating(rate);
 }
+
+const textStyle = {
+    lineHeight: '1',
+    margin: '0',
+    color,
+    size: `${size / 1.5}px`,
+};
 
 return(
         <div style={containerStyle}>
@@ -51,7 +62,7 @@ const starStyle = {
 }; 
 
 
-function Star({ onRate, full = false , onHoverIn, onHoverOut}) {
+function Star({ onRate, full = false , onHoverIn, onHoverOut,color = '#fcc419', size = 48}) {
 
 return(
 <span role="button" 
@@ -64,8 +75,8 @@ onMouseLeave={onHoverOut}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
-                    fill="#000"
-                    stroke="#000"
+                    fill={color}
+                    stroke={color}
                 >
 
   <path
@@ -76,7 +87,7 @@ onMouseLeave={onHoverOut}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    stroke="#000"
+    stroke={color}
   >
     <path
       strokeLinecap="round"
